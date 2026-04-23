@@ -76,31 +76,31 @@ This makes the API easier to use and more flexible and reduces dependency on doc
    Returning only IDs results in smaller responses and faster data transfer, but it requires the client to make additional requests to retrieve full details. On the other hand, returning full objects provides all relevant information in a single response, making it easier for the client to use, although it increases bandwidth usage. Therefore, returning full objects improves usability, while returning only IDs is more efficient for performance.
 
 2. Room Deletion & Safety Logic.  
-   Yes, the "DELETE" operation is idempotent because performing it multiple times results in the same system state. For example, the first DELETE request removes the room, and any subsequent DELETE requests will not change the system further since the room no longer exists. This means repeated calls do not produce additional effects, which satisfies the definition of idempotency.
+   Yes, the "DELETE" operation is idempotent because performing it multiple time will result in the same system state. For example, the first DELETE request removes the room, and any subsequent DELETE requests will not change the system further since the room no longer exists. This means repeated calls will not produce additional effects therefore it is idempotent.
 
 <ins>Part 3: Sensor Operations & Linking.</ins>
 
 1. Sensor Resource & Integrity.  
-   The @Consumes(MediaType.APPLICATION_JSON) annotation ensures that the API only accepts JSON data in requests. If a client sends data in another format such as text/plain or application/xml, JAX-RS will reject the request and return a 415 Unsupported Media Type error. This happens because the server is configured to process only JSON and cannot interpret unsupported formats.
+   The @Consumes(MediaType.APPLICATION_JSON) annotation ensures that the API only accepts JSON data in requests. If a client sends data in another format such as plain text or xml, JAX-RS will reject the request and return a 415 Unsupported Media Type error. This happens because the server is configured to process only JSON and cannot interpret other unsupported formats.
 
 2. Filtered Retrieval & Search.  
-   Using query parameters such as /api/v1/sensors?type=CO2 is preferred for filtering because they are optional, flexible, and allow multiple filters to be combined in a single request. In contrast, embedding filters in the path such as /api/v1/sensors/type/CO2 makes the API less flexible and harder to extend. Query parameters provide a cleaner design and are better suited for searching and filtering operations.
+   Using query parameters such as /api/v1/sensors?type=CO2 is ideal for filtering because they are optional, flexible, and allow multiple filters to be combined in a single request. In contrast to, embedding filters in the path such as /api/v1/sensors/type/CO2 makes the API less flexible and harder to extend. Query parameters provide a cleaner design and are better suited for searching and filtering operations.
 
 <ins>Part 4: Deep Nesting with Sub- Resources.</ins>
 
 1. The Sub-Resource Locator Pattern.  
-   The Sub-resource locator pattern helps organize the API by separating logic into smaller, focused classes. Instead of handling all nested paths in a single large controller, each resource is delegated to its own class, which improves readability, maintainability, and scalability. This approach makes the API easier to manage as it grows in complexity.
+   The Sub-resource locator pattern helps organize the API by separating logic into smaller, focused classes. Instead of handling all nested paths in a single large controller, each resource is assigned to its own class, which improves readability, maintainability, and scalability. This makes the API easier to manage as it grows in complexity.
 
 2. Historical Data Management.  
-   When a new reading is added, the system not only stores the reading but also updates the currentValue of the corresponding sensor. This ensures that the latest sensor value is always available without needing additional queries. It maintains data consistency between the sensor and its readings.
+   When a new reading is added, the system not only stores the reading but also updates the current Value of the corresponding sensor. This ensures that the latest sensor value is always available without needing additional queries. It maintains data consistency between the sensor and its readings.
 
 <ins>Part 5: Advanced Error Handling & Exception Mapping.</ins>  
 
-2. Dependency Validation (422 Unprocessable Entity).  
-   A 409 Conflict response occurs when an operation cannot be completed due to the current state of the system. In this case, attempting to delete a room that still has sensors assigned to it creates a conflict, as removing the room would leave orphaned sensors. Therefore, the system blocks the request and returns a 409 status.
+2. Dependency Validation (422 Unprocessable Entity).   
+   When an operation cannot be finished because of the system's current state, a 409 Conflict response is displayed. In this instance, trying to remove a room that still has sensors assigned to it causes a dispute because doing so would leave the sensors orphaned. As a result, the request is blocked and a 409 status is returned by the system.
 
-4. The Global Safety Net (500).  
-   Exposing internal stack traces is a security risk because it can reveal sensitive information such as class names, file structures, and application logic. Attackers can use this information to identify vulnerabilities and exploit the system. To prevent this, the API returns a generic 500 Internal Server Error message instead of exposing internal details.
+&nbsp;&nbsp;&nbsp;4\. The Global Safety Net (500).  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exposing internal stack traces is a security risk because it can reveal sensitive information such as class names, file structures, and &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;application logic. Attackers can use this information to identify vulnerabilities and exploit the system. To prevent this, the API returns a &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generic 500 Internal Server Error message instead of exposing internal details.
    
 
    
