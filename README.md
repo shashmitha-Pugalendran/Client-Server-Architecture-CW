@@ -100,7 +100,7 @@ This makes the API easier to use and more flexible and reduces dependency on doc
    When an operation cannot be finished because of the system's current state, a 409 Conflict response is displayed. In this instance, trying to remove a room that still has sensors assigned to it causes a dispute because doing so would leave the sensors orphaned. As a result, the request is blocked and a 409 status is returned by the system.
 
 &nbsp;&nbsp;&nbsp;4\. The Global Safety Net (500).  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exposing internal stack traces is a security risk because it can reveal sensitive information such as class names, file structures, and &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;application logic. Attackers can use this information to identify vulnerabilities and exploit the system. To prevent this, the API returns a &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generic 500 Internal Server Error message instead of exposing internal details.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exposing internal stack traces is a security risk because it can reveal sensitive information such as class names, file structures, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and application logic. Attackers can use this information to identify vulnerabilities and exploit the system. To prevent this, the &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;API returns a generic 500 Internal Server Error message instead of exposing internal details.
    
 
    
