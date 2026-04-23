@@ -1,0 +1,15 @@
+com\campus\mapper\LinkedResourceMapper.class
+com\campus\resource\SensorReadingResource.class
+com\campus\service\DataStorage.class
+com\campus\model\SensorReading.class
+com\campus\resource\SensorResource.class
+com\campus\exception\LinkedResourceNotFoundException.class
+com\campus\exception\SensorUnavailableException.class
+com\campus\exception\RoomNotEmptyException.class
+com\campus\resource\DiscoveryResource.class
+com\campus\mapper\RoomNotEmptyMapper.class
+com\campus\mapper\SensorUnavailableMapper.class
+com\campus\mapper\GlobalExceptionMapper.class
+com\campus\model\Sensor.class
+com\campus\model\Room.class
+com\campus\resource\RoomResource.class
